@@ -163,10 +163,3 @@ print("There are {} LDDTW".format(LDDTW))
 print("There are {} LDDWW".format(LDDWW))
 print("There are {} LDDYW".format(LDDYW))
 print("There are {} LDDVW".format(LDDVW))
-
-
-
-
-
-
-
