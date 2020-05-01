@@ -1,7 +1,7 @@
 # filter_fasta.py
 
 # To run this script enter the following into command line:
-# python filter_fasta.py < input.fasta > output.fasta
+# python filter_fasta.py < input_amino_acid.fasta > output.fasta
 
 import sys
 
@@ -56,8 +56,9 @@ last_keep = []
 # second filter
 for index in range(len(filtered_list)):
     if "LDD" in filtered_list[index]:
-        last_keep.append(index - 1)
-        last_keep.append(index)
+        if "GKT" in filtered_list[index]:
+            last_keep.append(index - 1)
+            last_keep.append(index)
 
 final_list = []
 
