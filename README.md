@@ -4,3 +4,5 @@ The identification NB-ARC domains was conducted using an iterative process based
 
 See *"ProjectCode.txt"* for the specific pipeline.
 See *"Outputs.txt"* for results.
+
+E. pauciflora [genome](https://www.ncbi.nlm.nih.gov/assembly/GCA_007663325.1).
