@@ -1,0 +1,23 @@
+- - - S T A T S - - -
+
+python counter.py < EP_specific_combined.bed
+python counter.py < EP_specific_nonTIRout.bed
+python counter.py < EP_specific_TIRout.bed
+>>> 4558 sequences total (2358 nonTIR, 2200 TIR)
+
+
+python aminoacid_counter.py < EP_aa.fasta
+>>> There are 4558.0 total sequences.
+>>> There are 2604.0 GKT+LDD sequences.
+
+
+python aminoacid_counter.py < EP_aa_nonTIR.fasta
+>>> There are 2358.0 total sequences.
+>>> There are 1372.0 GKT+LDD sequences retained.
+
+
+python aminoacid_counter.py < EP_aa_TIR.fasta
+>>> There are 2200.0 total sequences.
+>>> There are 1232.0 GKT+LDD sequences retained.
+
+- - -
