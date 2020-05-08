@@ -1,6 +1,3 @@
-# make_upper.py
-
-# Enter the following code into command line to run this script:
 # python maker_upper.py input.fasta > output.fasta
 
 import sys
