@@ -1,70 +1,47 @@
-# filter_fasta.py
-
-# To run this script enter the following into command line:
-# python filter_fasta.py < input_amino_acid.fasta > output.fasta
+# python filter_fasta.py input_aa.fasta > output_aa.fasta
 
 import sys
 
-# input fasta
-start_list = sys.stdin.readlines()
+fastaFileName = sys.argv[1]
 
-headers = []
-# mark the index of the headers
-for index in range(len(start_list)):
-    if ">" in start_list[index]:
-        headers.append(index)
+fasta_list = []
 
-unfiltered_list = []
-temp_seq = ""
+with open(fastaFileName) as fastaFile:
+    fasta_list = fastaFile.read().splitlines()
 
-# append the headers and the sequences
-for index in range(len(headers)):
-    unfiltered_list.append(start_list[headers[index]])
-    if headers[index] != headers[-1]:
-        for btwn in range(headers[index] + 1, headers[index + 1]):
-            temp_seq += start_list[btwn]
-        unfiltered_list.append(temp_seq)
-        temp_seq = ""
+GKT = 0
+GKS = 0
+both = 0
+index_list = []
 
+for index in range(len(fasta_list)):
+	if "GKT" in fasta_list[index]:
+		if "GKS" not in fasta_list[index]:
+			if "LDD" in fasta_list[index]:
+				GKT += 1
+				index_list.append(index)
 
-temp_seq = ""
+for index in range(len(fasta_list)):
+	if "GKS" in fasta_list[index]:
+		if "GKT" not in fasta_list[index]:
+			if "LDD" in fasta_list[index]:
+				GKS += 1
+				index_list.append(index)
 
-# add the sequence for the last header
-for line in start_list[headers[-1] + 1:]:
-    temp_seq += line
+for index in range(len(fasta_list)):
+	if "GKS" in fasta_list[index]:
+		if "GKT" in fasta_list[index]:
+			if "LDD" in fasta_list[index]:
+				both += 1
+				index_list.append(index)
 
-unfiltered_list.append(temp_seq)
+#print("There are {} GK T/S + LDD sequences".format(GKT + GKS + both))
 
+out_list = []
 
-keep_seq = []
+for index in index_list:
+	out_list.append(fasta_list[index - 1])
+	out_list.append(fasta_list[index])
 
-# first filter
-for index in range(len(unfiltered_list)):
-    if any(motif in unfiltered_list[index] for motif in ("GKT", "LDD")):
-        keep_seq.append(index - 1)
-        keep_seq.append(index)
-
-
-filtered_list = []
-
-for x in keep_seq:
-    filtered_list.append(unfiltered_list[x])
-
-
-last_keep = []
-
-# second filter
-for index in range(len(filtered_list)):
-    if "LDD" in filtered_list[index]:
-        if "GKT" in filtered_list[index]:
-            last_keep.append(index - 1)
-            last_keep.append(index)
-
-final_list = []
-
-for x in last_keep:
-    final_list.append(filtered_list[x])
-
-# print final_list for output fasta
-for entry in final_list:
-    print(entry)
+for entry in out_list:
+	print(entry)
